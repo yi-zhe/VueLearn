@@ -1,0 +1,50 @@
+<!--
+MVVM模型
+
+M  模型Model 对应data中的数据  Plain Javascript Object
+V  视图View  模板代码          DOM
+VM 视图模型   Vue实例对象      Vue
+
+Model 通过Data Binding控制视图上显示的数据
+View  通过DOM Listeners监听视图数据变化更新Model
+观察发现: 
+    1. data中的所有属性, 最后都出现在了vm上
+    2. vm身上所有的属性以及vue原型上所有的属性在Vue模板中都可以使用
+-->
+
+<html>
+    <head>
+        <title>MVVM模型</title>
+        <script type="text/javascript" src="./js/vue.js"></script>
+    </head>
+    <body>
+        
+        <div id="root">
+            <!-- View vm上的所有属性都能用 -->
+            <h1>学校名称: {{name}}</h1>
+            <h1>学校地址: {{address}}</h1>
+
+            <h1>1: {{$options}}</h1>
+            <h1>2: {{$emit}}</h1>
+            <h1>3: {{_c}}</h1>
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false
+
+            // ViewModel
+            const vm = new Vue({
+                el: '#root',
+                // data的第二种写法
+                data: function() {
+                    // Model 最终会出现在vm对象上
+                    return {
+                        name: '尚',
+                        address: '北京'
+                    }
+                }
+            })
+            console.log(vm)
+        </script>
+    </body>
+</html>
