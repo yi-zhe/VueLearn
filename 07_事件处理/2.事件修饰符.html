@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>事件修饰符</title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <!--
+        事件修饰符
+            1. prevent 阻止默认事件
+            2. stop 阻止事件冒泡
+            3. once 事件只触发一次
+            4. capture 使用事件的捕获模式(在捕获阶段即调用处理函数)
+            5. self 只有event.target是当前元素时才触发
+            6. passive 事件的默认行为立即执行, 而不是等到事件回调执行完毕再执行
+        -->
+        <div id="root">
+            <h2>欢迎来到{{name}}学习</h2>
+            <!-- 阻止默认事件 href 不会跳转了 -->
+            <a href="https://www.baidu.com" @click.prevent="showInfo">点我提示信息</a>
+            <!-- 阻止事件冒泡 不加stop 会调用两次showInfo -->
+            <div @click="showInfo">
+                <div @click.stop="showInfo">hi</div>
+            </div>
+            <div @click.once="showInfo">
+                只会调用一次
+            </div>
+            <!-- 其余三个不写例子了 用的时候再查 -->
+        </div>
+    </body>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el:'#root',
+            data: {
+                name: 'atguigu'
+            },
+            methods: {
+                showInfo() {
+                    alert('同学你好!')
+                }
+            }
+        })
+    </script>
+    
+</html>
