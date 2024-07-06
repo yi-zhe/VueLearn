@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>姓名案例-插值语法实现</title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            姓: <input type="text" v-model:value="firstName"><br/>
+            名: <input type="text" v-model:value="lastName">
+            全名: <span>{{firstName}}-{{lastName}}</span>
+        </div>
+    </body>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+    
+        new Vue({
+            // 用于指定当前Vue实例为哪个容器服务, 值通常为css选择器字符串
+            el: '#root',
+            // 用于存储数据, 数据供el指定的容器使用, 值暂时写成对象
+            data: {
+                firstName: '张',
+                lastName: '名'
+            }
+        })
+    </script>
+</html>
