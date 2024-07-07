@@ -1,0 +1,90 @@
+<!--
+深度监视
+    1. Vue中的watch默认不监测对象内部值的改变(一层)
+    2. 配置deep:true后可以检测对象内部值的改变(多层)
+备注
+    1. Vue自身可以监测对象内部的改变, 但Vue提供的watch默认不可以
+    2. 使用watch时根据数据的具体结构, 决定是否采用深度监视
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>天气案例-深度检视</title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>今天天气很{{info}}</h2>
+            <button @click="changeWeather">切换天气</button>
+            <hr />
+            <h3>a的值是: {{numbers.a}}</h3>
+            <button @click="numbers.a++">点我让a++</button>
+            <h3>a的值是: {{numbers.b}}</h3>
+            <button @click="numbers.b++">点我让b++</button>
+            <button @click="numbers = {a:666,b:888}">彻底替换掉numbers</button>
+        </div>
+    </body>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                isHot: true,
+                numbers: {
+                    a: 1,
+                    b: 1,
+                }
+            },
+            watch: {
+                // 正常写法
+                isHot: {
+                    immediate: true,
+                    handler(newValue, oldValue) {
+
+                    }
+                },
+                // 监视多级结构中某个属性的变化
+                'numbers.a': {
+
+                },
+                numbers: {
+                    // 开启深度监视 监视多级结构中所有属性的变化
+                    deep: true,
+                    handler() {
+
+                    }
+                },
+                // 不需要immediate和deep则可以简写为
+                // 简写
+                isHot(newV, oldV) {
+
+                }
+
+            },
+            computed: {
+                info() {
+                    return this.isHot ? '炎热' : '凉爽'
+                }
+            },
+            methods: {
+                changeWeather() {
+                    this.isHot = !this.isHot
+                }
+            },
+        })
+        // 正常写法
+        vm.$watch('isHot', {
+            immediate: true,
+            deep: true,
+            handler(newV, oldV) {
+
+            }
+        })
+        // 简写
+        vm.$watch('isHot', function(newV, oldV) {
+
+        })
+    </script>
+</html>
