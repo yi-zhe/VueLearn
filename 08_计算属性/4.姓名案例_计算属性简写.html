@@ -1,49 +1,42 @@
 <!--
-计算属性
-    1. 定义: 要用的属性不存在, 要通过已有属性计算得来
-    2. 原理: 底层借助Object.defineProperty方法提供的setter和getter
-    3. get函数什么时候执行
-        1.第一次读取
-        2.依赖的数据发生变化
-    4. 优势
-        内部有缓存机制 效率高 调试方便
-    5. 备注
-        1. 计算属性最终会出现在vm上直接读取即可
-        2. 如果计算属性要被修改 那必须写setter函数去相应修改 且set中要引起计算时依赖的数据发生
+computed和watch的区别
+1. computed能完成的功能, watch都能完成
+2. watch能完成的功能, computed不一定能完成 watch可以进行异步操作
+
+重要原则
+1. 所有被Vue管理的函数最好写普通函数, this指向vm或组件实例对象
+2. 所有不被Vue管理的函数, 最好写箭头函数, this指向vm或组件实例对象
 -->
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>姓名案例-计算属性实现</title>
+        <title>姓名案例-Watch实现</title>
         <script type="text/javascript" src="../js/vue.js"></script>
     </head>
     <body>
         <div id="root">
-            姓: <input type="text" v-model:value="firstName"><br/>
-            名: <input type="text" v-model:value="lastName"><br/>
-            全名: <span>{{fullName}}</span><br/>
+            姓: <input type="text" v-model:value="firstName"><br />
+            名: <input type="text" v-model:value="lastName"><br />
+            全名: <span>{{fullName}}</span><br />
         </div>
     </body>
     <script type="text/javascript">
         Vue.config.productionTip = false
-    
+
         new Vue({
             el: '#root',
             data: {
                 firstName: '张',
-                lastName: '三'
+                lastName: '三',
+                fullName: '张-三'
             },
-            computed: {
-                // 完整写法
-                fullName: {
-                    get() {
-                        return this.firstName + '-' + this.lastName
-                    }
+            watch: {
+                firstName(newValue, oldValue) {
+                    this.fullName = newValue + '-' + this.lastName
                 },
-                // 简写 没有set的时候才可以使用简写
-                fullName2() {
-                    return this.firstName + '-' + this.lastName
+                lastName(newValue, oldValue) {
+                    this.fullName = this.firstName + '-' + newValue
                 }
             }
         })
