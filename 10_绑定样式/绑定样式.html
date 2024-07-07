@@ -59,19 +59,27 @@
         </div>
     </body>
     <script type="text/javascript">
-        mood: 'normal',
-            classArr: ['arguigu1', 'atguigu2', 'atguigu3'],
-            classObj: {
-                atguigu1: false,
-                atguigu2: false
+        Vue.config.productionTip = false
+
+        new Vue({
+                el: '#root',
+                data: {
+                    firstName: '张',
+                    lastName: '三',
+                    mood: 'normal',
+                    classArr: ['arguigu1', 'atguigu2', 'atguigu3'],
+                    classObj: {
+                        atguigu1: false,
+                        atguigu2: false
+                    },
+                    styleObj: {
+                        fontSize: 40 px;
+                        color: 'red';
+                        backgroundColor: 'orange'
+                    }
+                },
             },
-            styleObj: {
-                fontSize: 40 px;
-                color: 'red';
-                backgroundColor: 'orange'
-            }
-        },
-        methods: {
+            methods: {
                 changeMood() {
                     const moods = ['happy', 'sad', 'normal']
                     const index = Math.floor(Math.random() * 3)
@@ -85,5 +93,18 @@
                         name: '张',
                     }
                 })
+                computed: {
+                    // 完整写法
+                    fullName: {
+                        get() {
+                            return this.firstName + '-' + this.lastName
+                        }
+                    },
+                    // 简写 没有set的时候才可以使用简写
+                    fullName2() {
+                        return this.firstName + '-' + this.lastName
+                    }
+                }
+            })
     </script>
 </html>
