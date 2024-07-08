@@ -1,0 +1,66 @@
+<!--
+
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>列表排序</title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>人员列表</h2>
+            <button @click="updateMei">更新马冬梅的信息</button>
+            <ul>
+                <li v-for="(person, index) in persons" :key="person.id">{{person.name}}-{{person.age}}</li>
+            </ul>
+
+        </div>
+    </body>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        // 使用计算属性实现
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                persons: [{
+                        id: '001',
+                        name: '周冬雨',
+                        age: 30
+                    },
+                    {
+                        id: '002',
+                        name: '马冬梅',
+                        age: 31
+                    }, {
+                        id: '003',
+                        name: '周杰伦',
+                        age: 18
+                    }, {
+                        id: '004',
+                        name: '温兆伦',
+                        age: 19
+                    }
+
+                ],
+                keyWord: '',
+                sortType: 0 // 0 原顺序 1 降序 2 升序
+            },
+            methods: {
+                updateMei() {
+                    // 管用
+                    this.persons[0].name = '马老师'
+                    this.persons[0].age = 50
+
+                    // 不管用 Vue没有检测到
+                    this.persons[0] = {
+                        id: '001',
+                        name: '周老师',
+                        age: 25
+                    }
+                }
+            }
+        })
+    </script>
+</html>
