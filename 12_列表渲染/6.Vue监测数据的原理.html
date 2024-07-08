@@ -1,0 +1,44 @@
+<!--
+
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue监测数据的原理</title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+
+    </body>
+    <script type="text/javascript">
+        let data = {
+            name: 'hi',
+            address: 'hello',
+            a: {
+                b: 1
+            }
+        }
+        const obs = new Observer(data)
+        console.log(obs)
+        let vm = {}
+        vm._data = data = obs
+
+        // 简单实现 并没有处理嵌套对象的处理
+        // Vue实现了嵌套对象和数组的属性的set/get实现
+        function Observer(obj) {
+            const keys = Object.keys(obj)
+            keys.forEach((k) => {
+                Object.defineProperty(this, k, {
+                    get() {
+                        return obj[k]
+                    }
+                    set(val) {
+                        console.log(`${k}被改了,解析模板、生成虚拟DOM、与旧虚拟DOM对比、更新真实DOM`)
+                        obj[k] = val
+                    }
+                })
+            })
+        }
+    </script>
+</html>
