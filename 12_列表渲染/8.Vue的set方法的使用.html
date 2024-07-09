@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <button @click="addSex">点我添加属性1</button>
+            <button @click="addAge">点我添加属性2</button>
+            <!-- 注意: 属性添加的target不可以是vm, 也不可以是vm._data -->
+            <ul>
+                <li v-for="(value, key) in person">
+                    {{key}} - {{value}}
+                </li>
+            </ul>
+        </div>
+    </body>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: '#root',
+            data: {
+                person: {
+                    name: 'Hi'
+                }
+            },
+            methods: {
+                addSex() {
+                    Vue.set(this.person, 'sex', '男')
+                },
+                addAge() {
+                    this.$set(this.person, 'age', 18)
+                }
+            }
+        })
+    </script>
+</html>
