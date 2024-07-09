@@ -1,0 +1,53 @@
+<!--
+
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue监测数据的原理-数组</title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <button @click="updateHobby">点我更新爱好</button>
+            <ul>
+                <li v-for="hobby in hobbies">
+                    {{hobby}}
+                </li>
+            </ul>
+            <button @click="removeBall">点我删除球</button>
+            <ul>
+                <li v-for="ball in balls">
+                    {{ball}}
+                </li>
+            </ul>
+        </div>
+    </body>
+    <script type="text/javascript">
+        // Vue想要监听对数组的修改需要使用下面的方法
+        // 1.
+        // push pop shift unshift slpice sort reverse
+        // 这些方法并不是Array.prototype上的方法, 而是Vue的包装方法, 
+        // 在调用Array.prototype上的方法后还会触发页面刷新(虚拟DOM DOM diff 更新DOM)
+        // 2.
+        // 使用Vue.set(vm.hobbies, 0, '吃喝玩乐')
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: '#root',
+            data: {
+                hobbies: ['1', '2', '3'],
+                balls: ['足球', '篮球', '乒乓球']
+            },
+            methods: {
+                updateHobby() {
+                    Vue.set(this.hobbies, 0, '吃喝玩乐')
+                },
+                removeBall() {
+                    this.balls.shift()
+                }
+            }
+        })
+    </script>
+</html>
