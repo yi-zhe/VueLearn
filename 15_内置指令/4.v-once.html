@@ -1,0 +1,30 @@
+<!--
+v-once指令(没有值)
+    v-once所在节点在初次动态渲染后,就被视为静态内容了
+    以后数据的改变不会引起v-once所在结构的更新, 可以用于优化性能
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>v-once指令</title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h3 v-once>原始n值是{{n}}</h3>
+            <h3>现在n值是{{n}}</h3>
+            <button @click="n++">点我n++</button>
+        </div>
+    </body>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: '#root',
+            data: {
+                n: 1
+            }
+        })
+    </script>
+</html>
