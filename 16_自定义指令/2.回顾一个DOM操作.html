@@ -1,0 +1,63 @@
+<!--
+自定义指令
+    定义语法:
+        局部指令:
+            new Vue({
+                directives:{
+                    '指令名:配置对象'
+                    }
+                })
+                new Vue({
+                    directives:{
+                        '指令名': 回调函数(element, binding) {
+                            
+                        }
+                    })
+        全局指令:
+            Vue.directive(指令名, 配置对象)
+            Vue.directive(指令名, 回调函数)
+    
+    配置对象中常用的三个回调
+        bind/inserted/update
+    
+    命名规则: 使用-连接单词 定义时用 'v-xx-xx'(element, binding) {}
+    指令函数中的this
+        简写函数中的this       -> Window
+        bind/inserted/update -> Window
+    局部指令: 只能给当前的Vue实例使用, 不能给其他Vue实例使用
+    
+    全局指令:
+    Vue.directive('fbind', {
+        bind(element, binding) {
+            element.value = binding.value
+        },
+        inserted(element, binding) {
+            element.focus()
+        },
+        update(element, binding) {
+            element.value = binding.value
+        }
+    })
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+        </div>
+    </body>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: '#root',
+            data: {
+                name: ''
+            }
+        })
+    </script>
+</html>
