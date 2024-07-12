@@ -28,6 +28,11 @@ beforeUpdate: 数据是最新的但页面未和数据同步
 updated: 
 数据和页面都是最新的(页面和数据保持了同步)
 
+当vm.$destroy()调用时
+
+beforeDestroy vm中所有的 data methods 指令等都处于可用状态 马上要执行销毁过程
+一般在此阶段关闭定时器 取消订阅消息 解绑自定义事件等收尾操作
+
 -->
 <!DOCTYPE html>
 <html>
