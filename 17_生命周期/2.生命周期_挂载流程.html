@@ -1,0 +1,79 @@
+<!--
+初始化: 生命周期、事件、但数据代理还未开始
+beforeCreate: 此时无法通过vm访问到data中的数据,methods中的方法
+初始化: 数据监测和数据代理
+created: 此时可以通过vm访问到data中的数据,methods中的方法
+
+el 选项存在吗 不存在等待vm.$mount(el)调用
+存在 查看template 是否存在
+存在 则编译模板并放到render函数中渲染
+不存在 则编译el的外层HTML作为模板 
+
+beforeMount
+页面呈现未经Vue编译的DOM
+所有对DOM的操作, 最终都不生效
+
+创建vm.$el并替换el标签
+vm.$el 用于复用DOM时保存原来的DOM
+
+mounted
+页面呈现经过Vue编译的DOM
+所有对DOM的操作都有效
+一般在这个位置 开启定时器、发网络请求、订阅消息、绑定自定义事件等初始化操作
+
+当数据改变的时候
+
+beforeUpdate: 数据是最新的但页面未和数据同步
+虚拟DOM重新计算并渲染: 根据最新数据, 生成新的虚拟DOM并与旧的虚拟DOM比较, 最终完成页面更新 Model -> View的更新
+updated: 
+数据和页面都是最新的(页面和数据保持了同步)
+
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>生命周期挂载流程</title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>{{n}}</h2>
+            <button @click="n++">点我n++</button>
+        </div>
+    </body>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: '#root',
+            data: {
+                n: 0
+            },
+            beforeCreate() {
+                console.log('beforeCreate')
+            },
+            created() {
+                console.log('created')
+            },
+            beforeMount() {
+                console.log('beforeMount')
+            },
+            mounted() {
+                console.log('mounted')
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate')
+            },
+            updated() {
+                console.log('updated')
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy')
+            },
+            destroyed() {
+                console.log('destroyed')
+            }
+        })
+    </script>
+</html>
