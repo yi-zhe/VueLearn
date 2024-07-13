@@ -1,0 +1,47 @@
+<!--
+1. 一个重要的内置关系
+    VueComponent.prototype.__prototype__ === Vue.prototype
+2. 为什么有这个关系, 让组件实例对象(vc)可以访问到Vue原型上的属性、方法
+
+实例的隐式原型对象永远指向自己缔造者的原型对象
+
+原型链的尽头是null
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+    </body>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+
+        function Demo() {
+            this.a = 1
+            this.b = 2
+        }
+
+        const d = new Demo()
+
+        // 下面两个都指向原型对象
+        // 显式原型属性
+        console.log(Demo.prototype)
+        // 隐式原型属性
+        console.log(d.__proto__)
+        // 程序员通过显式原型属性操作原型对象 追加一个属性x
+        Demo.prototype.x = 99;
+
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                name: ''
+            },
+        })
+    </script>
+</html>
