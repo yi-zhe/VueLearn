@@ -44,3 +44,20 @@ vue.config.js 配置文件
     2. 使用
         1. 全局: Vue.mixin(xxx)
         2. 局部: mixins: ['xxx', 'yyy']
+
+## 插件
+  功能: 用于增强Vue
+  本质: 包含install方法的一个对象, install的第一个参数是Vue, 第二个以后的参数是插件使用者传递的数据
+  定义: 
+  duixiang.install = function (Vue, options) {
+    Vue.filter()
+    Vue.directive()
+    Vue.mixin()
+    Vue.prototype.$myMethod = function() {}
+    Vue.prototype.$myProperty = xxx
+  }
+  使用:
+  Vue.use()
+
+
+
